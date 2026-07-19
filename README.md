@@ -1,29 +1,22 @@
-# Used Vehicle Inventory — MB Wesley Chapel (with live comment saving)
+# Used Vehicle Inventory — MB Wesley Chapel
 
-Single-file dashboard (`index.html`) plus a Netlify Function that stores the
-adjustment comments server-side via **Netlify Blobs**, so notes are saved the
-moment you type them and sync to everyone on every device.
+Single-file dashboard (index.html) with cloud-synced Recon & Pricing data. Notes, appraiser assignments, and recon figures are saved to a Supabase backend via the "Save to Cloud" button (and auto-load on page open), so the data syncs across devices.
 
-## How saving works (3 layers)
-1. **Live server save** — each comment POSTs to `/.netlify/functions/comments`
-   (Netlify Blobs). Loaded for everyone on page open. Source of truth.
-2. **localStorage** — offline fallback; your typing survives a refresh even if
-   the network hiccups.
-3. **Download & redeploy** ("Save" button) — still works as a manual backup.
+## How saving works
 
-The 37 June notes are embedded as defaults and seeded into the server store the
-first time the page loads after deploy.
+- Save to Cloud — the Recon Data tab's "Save to Cloud" button pushes appraised/recon/target/day-1-price figures, appraiser assignments, and notes to Supabase.
+- Auto-load from Cloud — the dashboard loads the latest saved recon data from Supabase when the page opens.
+- localStorage / Save File — the "Save File" button remains available as a manual local backup/export.
 
-## One-time deploy setup (Git-connected Netlify)
-A backend needs a Git deploy — drag-and-drop cannot run functions.
+## Deploy setup
 
-1. Put these files in a GitHub repo (root of the repo, or a base directory).
-2. In Netlify → site → **Build & deploy → Continuous deployment**, connect the
-   repo (set **Base directory** if these live in a subfolder).
-3. Netlify auto-installs `@netlify/blobs` from package.json and enables Blobs.
-4. Deploy. Verify: open `https://<site>/.netlify/functions/comments` — it should
-   return `{}` (or your seeded notes) as JSON, not an error.
+This is deployed via a Git-connected Netlify site (auto-deploys from the main branch of this repo):
+
+1. Push changes to index.html on main.
+2. Netlify picks up the push automatically and redeploys (see the Deploys tab in the Netlify dashboard).
+3. The Supabase connection details are embedded in index.html; no separate Netlify Function or environment setup is required for cloud saving.
 
 ## Verify saving works
-- Open the dashboard, go to the Adjustments view, type a test comment.
-- Open the site on a different device/browser → the comment is there.
+
+1. Open the dashboard, go to the Recon Data tab, enter some figures, and click "Save to Cloud".
+2. Reload the page (or open it on another device/browser) — the saved data should be there.
