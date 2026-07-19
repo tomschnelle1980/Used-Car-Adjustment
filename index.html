@@ -278,7 +278,7 @@
         <div class="report-title">Appraiser Performance Report</div>
         <div class="report-sub">Current inventory · Assignments saved in your browser</div>
       </div>
-      <button class="report-action-btn" onclick="renderReport()">↻ Refresh</button>
+      <button class="report-action-btn" onclick="renderReport();renderReconReport()">↻ Refresh</button>
     </div>
     <div id="report-content">
       <div class="empty-state">
@@ -286,6 +286,13 @@
         <p>Assign appraisers in the Inventory tab, then come back here.</p>
       </div>
     </div>
+    <div class="report-header" style="margin-top:36px">
+      <div>
+        <div class="report-title">Recon Performance by Appraiser</div>
+        <div class="report-sub">Based on Recon Data tab - Units, Avg Recon Variance, Avg Day 1 Exp Profit, Avg Day 1 vs Target %</div>
+      </div>
+    </div>
+    <div id="recon-report-content"></div>
   </div>
 </div>
 
@@ -474,7 +481,7 @@ function switchTab(tab,btn){
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
   document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
   btn.classList.add('active');document.getElementById('tab-'+tab).classList.add('active');
-  if(tab==='report')renderReport()}
+  if(tab==='report'){renderReport();renderReconReport()}}
 
 function renderReport(){
   const groups={},unassigned=[];
@@ -527,6 +534,41 @@ function renderReport(){
 <div class="report-table-wrap"><table class="report-table">
 <thead><tr><th>Appraiser</th><th>Units</th><th>Total Margin</th><th>Avg Margin/Unit</th><th>Avg Age</th><th>60+ Days</th><th>Total Adv. Value</th></tr></thead>
 <tbody>${trows}</tbody></table></div>${unHtml}`}
+
+function renderReconReport(){
+const groups={};
+Object.keys(RECON_DATA).forEach(function(stock){
+const d=RECON_DATA[stock];
+const name=(d.appraisalMgr||'').trim();
+if(!name)return;
+if(!groups[name])groups[name]={name:name,units:0,varSum:0,varN:0,profitSum:0,profitN:0,pctSum:0,pctN:0};
+const g=groups[name];
+g.units++;
+if(d.actualRecon&&d.actualRecon>0){
+const variance=(d.estRecon||0)-d.actualRecon;
+g.varSum+=variance;g.varN++;
+const totalCost=(d.appraised||0)+d.actualRecon;
+const profit=(d.day1Price||0)-totalCost-995-410;
+g.profitSum+=profit;g.profitN++;
+}
+if(d.target&&d.target>0&&d.day1Price){
+g.pctSum+=(d.day1Price/d.target*100);g.pctN++;
+}
+});
+const rows=Object.values(groups).sort(function(a,b){return b.units-a.units});
+const el=document.getElementById('recon-report-content');
+if(!el)return;
+if(!rows.length){el.innerHTML='<div class="empty-state"><p>No Recon Data tab appraiser assignments yet.</p></div>';return}
+const trows2=rows.map(function(r){
+const avgVar=r.varN?r.varSum/r.varN:null;
+const avgProfit=r.profitN?r.profitSum/r.profitN:null;
+const avgPct=r.pctN?r.pctSum/r.pctN:null;
+const vk=avgVar===null?'':(avgVar>=0?'margin-pos':'margin-neg');
+const pk=avgProfit===null?'':(avgProfit>=0?'margin-pos':'margin-neg');
+return '<tr><td style="font-weight:600;color:var(--text)">'+r.name+'</td><td style="font-family:\'JetBrains Mono\',monospace;color:var(--accent)">'+r.units+'</td><td class="'+vk+'">'+(avgVar===null?'--':fmt$(Math.round(avgVar)))+(r.varN?(' (n='+r.varN+')'):'')+'</td><td class="'+pk+'">'+(avgProfit===null?'--':fmt$(Math.round(avgProfit)))+(r.profitN?(' (n='+r.profitN+')'):'')+'</td><td style="font-family:\'JetBrains Mono\',monospace">'+(avgPct===null?'--':avgPct.toFixed(1)+'%')+(r.pctN?(' (n='+r.pctN+')'):'')+'</td></tr>';
+}).join('');
+el.innerHTML='<div class="report-table-wrap"><table class="report-table"><thead><tr><th>Appraiser</th><th>Units</th><th>Avg Recon Variance</th><th>Avg Day 1 Exp Profit</th><th>Avg Day 1 / Target %</th></tr></thead><tbody>'+trows2+'</tbody></table></div><div style="font-size:11px;color:var(--text-muted);margin-top:8px">Avg Recon Variance and Avg Day 1 Exp Profit only include units where Actual Recon has been entered. Avg Day 1 / Target % only includes units with both Target and Day 1 Price entered. (n=x) shows the sample size used for that average.</div>';
+}
 
 
 // ── SOLD UNITS DATA ────────────────────────────────────────
