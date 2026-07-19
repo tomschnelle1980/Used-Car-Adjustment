@@ -465,7 +465,7 @@ function saveAppraiser(el){appraisers[el.dataset.vin]=el.value.trim();el.classLi
 function setSource(s,b){currentSource=s;document.querySelectorAll('.source-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');render()}
 function applySort(){currentSort=document.getElementById('sort-select').value;render()}
 function sortBy(f){const sel=document.getElementById('sort-select');const base=f==='make'?'make-asc':f==='age'?'age-desc':f==='advPrice'||f==='price'?'price-desc':f==='mileage'?'mileage-asc':f==='views'?'views-desc':f==='opps'?'opps-desc':f==='margin'?'margin-desc':'age-desc';const opp=base.endsWith('-desc')?base.replace('-desc','-asc'):base.replace('-asc','-desc');sel.value=(sel.value===base)?opp:base;currentSort=sel.value;render()}
-window.addEventListener('DOMContentLoaded',function(){var _si=document.getElementById('search-input');if(_si)_si.addEventListener('input',function(){searchTerm=this.value.trim();render();});});
+window.addEventListener('DOMContentLoaded',function(){var _si=document.getElementById('search-input');if(_si)_si.addEventListener('input',function(){searchTerm=this.value.trim();render();});loadReconFromCloud();});
 
 function switchTab(tab,btn){
   if(tab==='sold'){setTimeout(function(){if(soldView==='adj')renderAdj();else renderSold();},10)}
@@ -896,19 +896,16 @@ async function loadReconFromCloud() {
       appraisalMgr: row.appraisal_mgr || '',
       note: row.note || ''
     };
-    // Also restore comments
-    if (row.adj_comments) {
-      Object.assign(adjComments, row.adj_comments);
-    }
-  });
-  // Refresh the recon rows if tab is visible
-  if (document.getElementById('tab-recon') && 
-      document.getElementById('tab-recon').classList.contains('active')) {
+ });
+   document.querySelectorAll('.rd-input').forEach(function(inp) {
+         var st = inp.dataset.stock, f = inp.dataset.field;
+         if (RECON_DATA[st] && RECON_DATA[st][f] !== undefined && RECON_DATA[st][f] !== null && RECON_DATA[st][f] !== '') {
+                 inp.value = RECON_DATA[st][f];
+                      }
+   });
+    loadReconMgrsAndNotes();
     initReconRows();
-  }
-  // Refresh adj comments
-  loadAdjComments();
-  console.log('Loaded', data.length, 'recon records from cloud');
+    console.log('Loaded', data.length, 'recon records from cloud');
 }
 
 async function saveReconToCloud(stock) {
