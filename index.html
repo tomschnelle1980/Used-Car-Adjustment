@@ -1150,6 +1150,86 @@ function loadReconMgrsAndNotes() {
     if (RECON_DATA[s] && RECON_DATA[s].note) inp.value = RECON_DATA[s].note;
   });
 }
+
+// ── JULY 2026 SOLD DATA ────────────────────────────────────────────────────
+var SOLD_JULY=[
+{date:"2026-07-01",stock:"PA016260",year:2023,make:"MB",model:"EQS",saleType:"Finance",salesMgr:"RODRIGUEZ,MANNY",cfsMgr:"COPETE,MATHEW",sp1:"EVANS JR,DEVON",sp2:"",customer:"WENZEL,ROBERT ANTHONY",frontGross:-616.73,cfsGross:4834.81,totalGross:4218.08},
+{date:"2026-07-01",stock:"RFP74859",year:2024,make:"BMW",model:"4 Series",saleType:"Cash",salesMgr:"RODRIGUEZ,MANNY",cfsMgr:"COPETE,MATHEW",sp1:"HICKMAN,KYLE",sp2:"",customer:"MOSSMAN,MITCHELL",frontGross:2861.05,cfsGross:2100.00,totalGross:4961.05},
+{date:"2026-07-03",stock:"JA092805",year:2018,make:"MB",model:"GLE",saleType:"Finance",salesMgr:"RODRIGUEZ,MANNY",cfsMgr:"AWADA,MOHAMAD",sp1:"HICKMAN,KYLE",sp2:"",customer:"BOSTICK-LUGO,PATRICE MICHELLE",frontGross:-501.86,cfsGross:4177.72,totalGross:3675.86},
+{date:"2026-07-03",stock:"HA859281",year:2017,make:"MB",model:"GLS",saleType:"Finance",salesMgr:"IGARZA,LAURA",cfsMgr:"COPETE,MATHEW",sp1:"HILGETAG,ALEX",sp2:"",customer:"BOYD,KENNETA",frontGross:1143.45,cfsGross:4418.69,totalGross:5562.14},
+{date:"2026-07-03",stock:"NJ372139",year:2022,make:"MB",model:"A-Class",saleType:"Finance",salesMgr:"GOURZONG,CLAUDE",cfsMgr:"AWADA,MOHAMAD",sp1:"TUCKER,ASHLEY",sp2:"",customer:"JOHN,BIBBY",frontGross:2033.00,cfsGross:3101.87,totalGross:5134.87},
+{date:"2026-07-03",stock:"PG214111",year:2023,make:"KIA",model:"Sorento",saleType:"Finance",salesMgr:"GOURZONG,CLAUDE",cfsMgr:"AWADA,MOHAMAD",sp1:"CHHOTALAL,KISAN",sp2:"",customer:"JENNINGS,ERIN",frontGross:-1544.89,cfsGross:4467.46,totalGross:2922.57},
+{date:"2026-07-04",stock:"TB516893",year:2026,make:"MB",model:"GLE",saleType:"Lease",salesMgr:"GOURZONG,CLAUDE",cfsMgr:"EL NEHMANI,HOSAMEDDINE",sp1:"CHHOTALAL,KISAN",sp2:"",customer:"KAZAAL,BURHAN RADWAN",frontGross:-1872.79,cfsGross:6789.85,totalGross:4917.06},
+{date:"2026-07-04",stock:"MN408978",year:2021,make:"NISSAN",model:"Altima",saleType:"Finance",salesMgr:"IGARZA,LAURA",cfsMgr:"COPETE,MATHEW",sp1:"ANTONELLO,VINNIE",sp2:"",customer:"PRENDES,DANIEL",frontGross:-1015.83,cfsGross:316.67,totalGross:-699.16},
+{date:"2026-07-05",stock:"NV364790",year:2022,make:"MB",model:"GLC",saleType:"Finance",salesMgr:"GOURZONG,CLAUDE",cfsMgr:"COPETE,MATHEW",sp1:"HILGETAG,ALEX",sp2:"",customer:"MISSALL,CURT",frontGross:-2884.51,cfsGross:1006.84,totalGross:-1877.67},
+{date:"2026-07-05",stock:"TN587251",year:2026,make:"MB",model:"CLA",saleType:"Finance",salesMgr:"GOURZONG,CLAUDE",cfsMgr:"COPETE,MATHEW",sp1:"PEREYRA,FELIX",sp2:"",customer:"ALKATTAN,AYMAN",frontGross:2202.51,cfsGross:7204.84,totalGross:9407.35},
+{date:"2026-07-05",stock:"H0U42234",year:2017,make:"BMW",model:"X3",saleType:"Finance",salesMgr:"RODRIGUEZ,MANNY",cfsMgr:"COPETE,MATHEW",sp1:"EVANS JR,DEVON",sp2:"HICKMAN,KYLE",customer:"URIAS,CARLOS",frontGross:-993.62,cfsGross:3972.01,totalGross:2978.39},
+{date:"2026-07-06",stock:"NH143686",year:2022,make:"DODGE",model:"Challenger",saleType:"Finance",salesMgr:"RODRIGUEZ,MANNY",cfsMgr:"COPETE,MATHEW",sp1:"HILGETAG,ALEX",sp2:"SHELKAR,ABHIJEET",customer:"SCAMARDELLA,GIOVANNA",frontGross:-1845.48,cfsGross:1463.38,totalGross:-382.10},
+{date:"2026-07-06",stock:"GL001465",year:2016,make:"ACURA",model:"RDX",saleType:"Finance",salesMgr:"GOURZONG,CLAUDE",cfsMgr:"AWADA,MOHAMAD",sp1:"ANTONELLO,VINNIE",sp2:"",customer:"AGUIRRE,LYNDETTE",frontGross:-332.11,cfsGross:3928.79,totalGross:3596.68},
+{date:"2026-07-06",stock:"PFA77705",year:2023,make:"FORD",model:"F-150",saleType:"Cash",salesMgr:"RODRIGUEZ,MANNY",cfsMgr:"WHOLESALE,FI",sp1:"PEREYRA,FELIX",sp2:"",customer:"TUTOR,KENNETH LAYNE",frontGross:-744.78,cfsGross:0.00,totalGross:-744.78},
+{date:"2026-07-07",stock:"NA701132",year:2022,make:"JAGUAR",model:"F-PACE",saleType:"Finance",salesMgr:"GOURZONG,CLAUDE",cfsMgr:"COPETE,MATHEW",sp1:"HICKMAN,KYLE",sp2:"",customer:"COLVER,TAMSIN",frontGross:-2337.95,cfsGross:3342.94,totalGross:1004.99},
+{date:"2026-07-08",stock:"PF447730",year:2023,make:"TESLA",model:"Model 3",saleType:"Finance",salesMgr:"RODRIGUEZ,MANNY",cfsMgr:"EL NEHMANI,HOSAMEDDINE",sp1:"ANTONELLO,VINNIE",sp2:"",customer:"WILLIAMS,JANET",frontGross:1460.25,cfsGross:4008.04,totalGross:5468.29},
+{date:"2026-07-08",stock:"ND033536",year:2022,make:"AUDI",model:"Q8",saleType:"Finance",salesMgr:"IGARZA,LAURA",cfsMgr:"AWADA,MOHAMAD",sp1:"CHHOTALAL,KISAN",sp2:"",customer:"BJELAJAC,NINA",frontGross:-884.80,cfsGross:4993.50,totalGross:4108.70},
+{date:"2026-07-09",stock:"MA035071",year:2021,make:"MB",model:"S-Class",saleType:"Finance",salesMgr:"IGARZA,LAURA",cfsMgr:"EL NEHMANI,HOSAMEDDINE",sp1:"HICKMAN,KYLE",sp2:"ANTONELLO,VINNIE",customer:"OWENS,ANTONIO LASHEAN",frontGross:-723.22,cfsGross:13556.87,totalGross:12833.65},
+{date:"2026-07-09",stock:"PT142866",year:2023,make:"MB",model:"Sprinter Cargo Van",saleType:"Finance",salesMgr:"IGARZA,LAURA",cfsMgr:"COPETE,MATHEW",sp1:"CHHOTALAL,KISAN",sp2:"",customer:"GARCIA-RIVERO,ANAIRSY",frontGross:-1324.84,cfsGross:2983.24,totalGross:1658.40},
+{date:"2026-07-09",stock:"NV336240",year:2022,make:"MB",model:"GLC",saleType:"Finance",salesMgr:"IGARZA,LAURA",cfsMgr:"COPETE,MATHEW",sp1:"EVANS JR,DEVON",sp2:"",customer:"LEKA,KUDRET",frontGross:-127.77,cfsGross:765.62,totalGross:637.85},
+{date:"2026-07-10",stock:"SB281670",year:2025,make:"MB",model:"GLE",saleType:"Finance",salesMgr:"IGARZA,LAURA",cfsMgr:"COPETE,MATHEW",sp1:"HILGETAG,ALEX",sp2:"DE SANTIS JULIAO,JONATHAN",customer:"CAMPOS,ARIANNE",frontGross:-1147.19,cfsGross:9768.87,totalGross:8621.68},
+{date:"2026-07-11",stock:"SF049399",year:2025,make:"MB",model:"CLE",saleType:"Finance",salesMgr:"RODRIGUEZ,MANNY",cfsMgr:"EL NEHMANI,HOSAMEDDINE",sp1:"HILGETAG,ALEX",sp2:"",customer:"KERR,RAVEL ICILYN",frontGross:-1647.53,cfsGross:9226.75,totalGross:7579.22},
+{date:"2026-07-11",stock:"HD014257",year:2017,make:"AUDI",model:"Q7",saleType:"Cash",salesMgr:"RODRIGUEZ,MANNY",cfsMgr:"COPETE,MATHEW",sp1:"MEDINA,DAVID",sp2:"",customer:"RANDLE,JAZZMIN RENATA JOHNELLE",frontGross:-817.90,cfsGross:2100.00,totalGross:1282.10},
+{date:"2026-07-12",stock:"PA179088",year:2023,make:"MB",model:"S-Class",saleType:"Finance",salesMgr:"RODRIGUEZ,MANNY",cfsMgr:"AWADA,MOHAMAD",sp1:"MEDINA,DAVID",sp2:"",customer:"MARTINS,MARIO SANTOS",frontGross:1267.42,cfsGross:6623.32,totalGross:7890.74},
+{date:"2026-07-12",stock:"TW459234",year:2026,make:"MB",model:"GLB",saleType:"Lease",salesMgr:"RODRIGUEZ,MANNY",cfsMgr:"AWADA,MOHAMAD",sp1:"ANTONELLO,VINNIE",sp2:"CHHOTALAL,KISAN",customer:"THOMAS,THOMSON",frontGross:1828.31,cfsGross:4362.24,totalGross:6190.55},
+{date:"2026-07-13",stock:"GU159334",year:2016,make:"MB",model:"C-Class",saleType:"Finance",salesMgr:"RODRIGUEZ,MANNY",cfsMgr:"COPETE,MATHEW",sp1:"HILGETAG,ALEX",sp2:"",customer:"MILLER,ADRIAN",frontGross:-564.95,cfsGross:3670.55,totalGross:3105.60},
+{date:"2026-07-13",stock:"PJ473424",year:2023,make:"MB",model:"GLA",saleType:"Finance",salesMgr:"RODRIGUEZ,MANNY",cfsMgr:"AWADA,MOHAMAD",sp1:"ANTONELLO,VINNIE",sp2:"",customer:"CAMPBELL,CHRISTINA",frontGross:-1369.68,cfsGross:3332.49,totalGross:1962.81},
+{date:"2026-07-14",stock:"TJ821805",year:2026,make:"MB",model:"GLA",saleType:"Finance",salesMgr:"IGARZA,LAURA",cfsMgr:"COPETE,MATHEW",sp1:"HILGETAG,ALEX",sp2:"THORNTON,MATTHEW",customer:"LAROSE,EDWARD",frontGross:2845.51,cfsGross:3211.86,totalGross:6057.37},
+{date:"2026-07-14",stock:"KA900153",year:2019,make:"AUDI",model:"RS 5 Sportback",saleType:"Finance",salesMgr:"IGARZA,LAURA",cfsMgr:"COPETE,MATHEW",sp1:"HICKMAN,KYLE",sp2:"",customer:"DJORDJIC,MARINA",frontGross:557.83,cfsGross:2947.00,totalGross:3504.83},
+{date:"2026-07-15",stock:"P5341667",year:2023,make:"LEXUS",model:"GX",saleType:"Cash",salesMgr:"GOURZONG,CLAUDE",cfsMgr:"COPETE,MATHEW",sp1:"HICKMAN,KYLE",sp2:"",customer:"KOTLYN,CHASTEN JAMES",frontGross:448.78,cfsGross:0.00,totalGross:448.78},
+{date:"2026-07-16",stock:"NF129274",year:2022,make:"CADILLAC",model:"XT4",saleType:"Finance",salesMgr:"RODRIGUEZ,MANNY",cfsMgr:"AWADA,MOHAMAD",sp1:"DE SANTIS JULIAO,JONATHAN",sp2:"",customer:"SOODJINDA,ANGELA",frontGross:-2712.83,cfsGross:3419.20,totalGross:706.37}
+];
+
+function fmtJuly$(n){if(isNaN(n)||n===null)return'--';var s=Math.abs(Math.round(n)).toLocaleString('en-US');return(n<0?'-$':'$')+s;}
+function fmtJulyDate(d){if(!d)return'';var p=d.split('-');return p[1]+'/'+p[2];}
+function fmtName(n){if(!n)return'--';var p=n.split(',');return p.length>1?p[1].trim()+' '+p[0].trim():n;}
+
+function renderSoldJuly(){
+  var data=SOLD_JULY;
+  var totalFront=0,totalCfs=0,totalGross=0;
+  data.forEach(function(v){totalFront+=v.frontGross;totalCfs+=v.cfsGross;totalGross+=v.totalGross;});
+  var cnt=data.length;
+  var avgFront=cnt?totalFront/cnt:0;
+  var avgTotal=cnt?totalGross/cnt:0;
+  var sb=document.getElementById('july-summary-bar');
+  if(sb){
+    sb.innerHTML=[
+      {lbl:'Units Sold',val:cnt,color:'var(--accent)'},
+      {lbl:'Total Front',val:fmtJuly$(totalFront),color:totalFront>=0?'var(--green)':'var(--red)'},
+      {lbl:'Avg Front/Unit',val:fmtJuly$(avgFront),color:avgFront>=0?'var(--green)':'var(--red)'},
+      {lbl:'Total CFS',val:fmtJuly$(totalCfs),color:'var(--blue)'},
+      {lbl:'Total Gross',val:fmtJuly$(totalGross),color:totalGross>=0?'var(--green)':'var(--red)'},
+      {lbl:'Avg Total/Unit',val:fmtJuly$(avgTotal),color:avgTotal>=0?'var(--green)':'var(--red)'}
+    ].map(function(s){return'<div class="summary-item"><span class="summary-num" style="color:'+s.color+';font-family:\'JetBrains Mono\',monospace">'+s.val+'</span><span class="summary-lbl">'+s.lbl+'</span></div>';}).join('');
+  }
+  var tbody=document.getElementById('july-body');
+  if(!tbody)return;
+  tbody.innerHTML=data.map(function(v){
+    var fk=v.frontGross>=0?'margin-pos':'margin-neg';
+    var tk=v.totalGross>=0?'margin-pos':'margin-neg';
+    return'<tr>'+
+      '<td style="font-family:\'JetBrains Mono\',monospace;color:var(--accent);white-space:nowrap;padding:10px 12px">'+v.stock+'</td>'+
+      '<td style="color:var(--text-muted);padding:10px 12px">'+fmtJulyDate(v.date)+'</td>'+
+      '<td style="padding:10px 12px"><span style="background:var(--surface2);color:var(--text-muted);font-size:10px;padding:2px 6px;border-radius:4px;font-weight:600">'+v.saleType+'</span></td>'+
+      '<td style="color:var(--text);padding:10px 12px">'+v.year+' '+v.make+' '+v.model+'</td>'+
+      '<td style="color:var(--text-muted);font-size:12px;padding:10px 12px">'+fmtName(v.customer)+'</td>'+
+      '<td style="color:var(--text-muted);font-size:12px;padding:10px 12px">'+fmtName(v.salesMgr)+'</td>'+
+      '<td style="color:var(--text-muted);font-size:12px;padding:10px 12px">'+fmtName(v.cfsMgr)+'</td>'+
+      '<td style="color:var(--text-muted);font-size:12px;padding:10px 12px">'+fmtName(v.sp1)+'</td>'+
+      '<td class="'+fk+'" style="font-family:\'JetBrains Mono\',monospace;text-align:right;padding:10px 12px">'+fmtJuly$(v.frontGross)+'</td>'+
+      '<td style="font-family:\'JetBrains Mono\',monospace;text-align:right;color:var(--blue);padding:10px 12px">'+fmtJuly$(v.cfsGross)+'</td>'+
+      '<td class="'+tk+'" style="font-family:\'JetBrains Mono\',monospace;text-align:right;font-weight:700;padding:10px 12px">'+fmtJuly$(v.totalGross)+'</td>'+
+    '</tr>';
+  }).join('');
+  var countEl=document.getElementById('july-count');if(countEl)countEl.textContent=cnt;
+  var grossEl=document.getElementById('july-total-gross');if(grossEl){grossEl.textContent=fmtJuly$(totalGross);grossEl.style.color=totalGross>=0?'var(--green)':'var(--red)';}
+}
 </script>
 
 <!-- SOLD UNITS TAB -->
