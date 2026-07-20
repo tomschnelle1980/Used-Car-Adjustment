@@ -895,9 +895,20 @@ function updateReconRow(stock) {
 }
 
 function initReconRows() {
-  var stocks = Object.keys(RECON_DATA);
-  stocks.forEach(function(stock) { updateReconRow(stock); });
-  loadReconMgrsAndNotes();
+var stocks = Object.keys(RECON_DATA);
+stocks.forEach(function(stock) { updateReconRow(stock); });
+loadReconMgrsAndNotes();
+addReconCopyBtns();
+}
+
+function addReconCopyBtns() {
+document.querySelectorAll('#tab-recon tbody tr[data-stock]').forEach(function(tr){
+var stock=tr.dataset.stock;
+var td=tr.querySelector('td');
+if(td && !td.querySelector('.vin-copy')){
+td.innerHTML=stock+' <button class="vin-copy" onclick="copyVin(\''+stock+'\',this)" title="Copy Stock#">'+cpyIco()+'</button>';
+}
+});
 }
 
 
