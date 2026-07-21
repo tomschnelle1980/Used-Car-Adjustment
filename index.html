@@ -3038,6 +3038,269 @@ function bucketStrip(){
   </div>
 </div>
 
+<script>
+// ─── PATCH 1: Override renderJulyReport with full June-matching layout ────────
+function renderJulyReport(){
+  var el=document.getElementById('july-report-content');if(!el)return;
+  var groups={},unassigned=[];
+  SOLD_JULY.forEach(function(v){
+    var n=(julyAppraisers[v.stock]||'').trim();
+    if(!n){unassigned.push(v);return;}
+    var k=n.toLowerCase();
+    if(!groups[k])groups[k]={name:n,deals:[]};
+    groups[k].deals.push(v);
+  });
+  if(!Object.keys(groups).length){
+    el.innerHTML='<div class="empty-state"><p>Assign appraisers in the Deal List view first.</p></div>';
+    return;
+  }
+  var rows=Object.values(groups).map(function(g){
+    var c=g.deals.length,
+        tf=g.deals.reduce(function(s,v){return s+v.frontGross;},0),
+        tc=g.deals.reduce(function(s,v){return s+v.cfsGross;},0),
+        tt=g.deals.reduce(function(s,v){return s+v.totalGross;},0);
+    return{name:g.name,count:c,totalFront:tf,totalCFS:tc,totalGross:tt,
+      avgGross:c?tt/c:0,avgFront:c?tf/c:0,avgCFS:c?tc/c:0,deals:g.deals};
+  }).sort(function(a,b){return b.totalGross-a.totalGross;});
 
+  function toggleJCard(id){
+    var e=document.getElementById(id+'-extra');
+    if(e)e.style.display=e.style.display==='none'?'block':'none';
+  }
+  window.toggleJCard=toggleJCard;
 
+  var cards=rows.map(function(r){
+    var gk=r.totalGross>=0?'pos':'neg',ak=r.avgGross>=0?'pos':'neg';
+    var cId='jcard-'+r.name.replace(/[^a-zA-Z0-9]/g,'');
+    function dealRow(v){
+      return '<div class="appraiser-vehicle-row" style="display:grid;grid-template-columns:1fr 1fr;gap:0;align-items:center">'
+        +'<span class="appraiser-veh-name" style="font-size:11px">'+v.year+' '+v.make+' '+v.model+'</span>'
+        +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:4px">'
+        +'<span style="font-size:11px;text-align:right;color:'+(v.frontGross>=0?'var(--green)':'var(--red)')+'">'+fmt$(v.frontGross)+'</span>'
+        +'<span style="font-size:11px;text-align:right;color:var(--blue)">'+fmt$(v.cfsGross)+'</span>'
+        +'</div></div>';
+    }
+    var first5=r.deals.slice(0,5).map(dealRow).join('');
+    var restDeals=r.deals.length>5?('<div id="'+cId+'-extra" style="display:none">'+r.deals.slice(5).map(dealRow).join('')+'</div>'):'';
+    var moreBtn=r.deals.length>5?('<div class="appraiser-vehicle-row" style="cursor:pointer" onclick="toggleJCard(\''+cId+'\')">'
+      +'<span style="color:var(--accent);font-size:11px;font-weight:600">&#9660; +'+(r.deals.length-5)+' more deals</span></div>'):'';
+    var hdr='<div style="display:grid;grid-template-columns:1fr 1fr;gap:0;margin-bottom:6px;padding-bottom:6px;border-bottom:1px solid var(--border)">'
+      +'<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--text-muted)">Vehicle</div>'
+      +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:4px">'
+      +'<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--text-muted);text-align:right">Front</div>'
+      +'<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--text-muted);text-align:right">F&amp;I</div>'
+      +'</div></div>';
+    return '<div class="sold-appraiser-card">'
+      +'<div class="appraiser-card-header"><div class="appraiser-name">'+r.name+'</div>'
+      +'<div class="appraiser-unit-badge">'+r.count+' unit'+(r.count!==1?'s':'')+'</div></div>'
+      +'<div class="appraiser-stats">'
+      +'<div class="appraiser-stat"><span class="val '+gk+'">'+(r.totalGross>=0?'+':'')+fmt$(r.totalGross)+'</span><span class="lbl">Total Gross</span></div>'
+      +'<div class="appraiser-stat"><span class="val '+ak+'">'+(r.avgGross>=0?'+':'')+fmt$(r.avgGross)+'</span><span class="lbl">Avg/Deal</span></div>'
+      +'<div class="appraiser-stat"><span class="val" style="color:'+(r.totalFront>=0?'var(--green)':'var(--red)')+'">'+fmt$(r.totalFront)+'</span><span class="lbl">Front Gross</span></div>'
+      +'<div class="appraiser-stat"><span class="val" style="color:var(--blue)">'+fmt$(r.totalCFS)+'</span><span class="lbl">F&amp;I Gross</span></div>'
+      +'<div class="appraiser-stat"><span class="val" style="color:'+(r.avgFront>=0?'var(--green)':'var(--red)')+'">'+(r.avgFront>=0?'+':'')+fmt$(r.avgFront)+'</span><span class="lbl">Avg Front PVR</span></div>'
+      +'<div class="appraiser-stat"><span class="val" style="color:var(--blue)">'+(r.avgCFS>=0?'+':'')+fmt$(r.avgCFS)+'</span><span class="lbl">Avg F&amp;I PVR</span></div>'
+      +'</div>'
+      +'<div class="appraiser-vehicles">'+hdr+first5+moreBtn+restDeals+'</div>'
+      +'</div>';
+  }).join('');
+
+  var trows=rows.map(function(r){
+    return '<tr>'
+      +'<td style="font-weight:600;color:var(--text);padding:12px 14px">'+r.name+'</td>'
+      +'<td style="font-family:\'JetBrains Mono\',monospace;color:var(--accent);padding:12px 14px">'+r.count+'</td>'
+      +'<td class="'+(r.totalGross>=0?'margin-pos':'margin-neg')+'" style="padding:12px 14px">'+(r.totalGross>=0?'+':'')+fmt$(r.totalGross)+'</td>'
+      +'<td class="'+(r.avgGross>=0?'margin-pos':'margin-neg')+'" style="padding:12px 14px">'+(r.avgGross>=0?'+':'')+fmt$(r.avgGross)+'</td>'
+      +'<td style="padding:12px 14px;font-family:\'JetBrains Mono\',monospace;color:'+(r.totalFront>=0?'var(--green)':'var(--red)')+'">'+fmt$(r.totalFront)+'</td>'
+      +'<td style="padding:12px 14px;font-family:\'JetBrains Mono\',monospace;color:var(--blue)">'+fmt$(r.totalCFS)+'</td>'
+      +'</tr>';
+  }).join('');
+
+  var unHtml=unassigned.length
+    ?'<div class="unassigned-section"><div class="unassigned-title">&#9888; Unassigned Deals <span class="unassigned-count">'+unassigned.length+' units</span></div>'
+      +'<div class="unassigned-grid">'+unassigned.map(function(v){
+        return '<div class="unassigned-card"><div class="appraiser-card-header" style="margin-bottom:4px">'
+          +'<div style="font-size:11px">'+v.date.slice(5)+' &middot; '+v.year+' '+v.make+' '+v.model+'</div>'
+          +'<span style="font-size:11px;color:'+(v.totalGross>=0?'var(--green)':'var(--red)')+'">'+fmt$(v.totalGross)+'</span>'
+          +'</div><div class="unassigned-card-vin">'+v.stock+'</div></div>';
+      }).join('')+'</div></div>'
+    :'<div style="padding:12px 0;font-size:12px;color:var(--green)">&#10003; All deals assigned.</div>';
+
+  el.innerHTML='<div class="sold-appraiser-grid">'+cards+'</div>'
+    +'<div style="margin-bottom:12px;font-size:13px;font-weight:700;color:var(--text)">Summary Table</div>'
+    +'<div class="sold-report-table-wrap"><table class="report-table">'
+    +'<thead><tr><th>Appraiser</th><th>Units</th><th>Total Gross</th><th>Avg/Deal</th><th>Front Gross</th><th>F&amp;I Gross</th></tr></thead>'
+    +'<tbody>'+trows+'</tbody></table></div>'+unHtml;
+}
+
+// ─── PATCH 2: Month selector for main Appraiser Report tab ───────────────────
+var apprMonth='jun';
+
+function setApprMonth(m,btn){
+  apprMonth=m;
+  document.querySelectorAll('#appr-month-btns .source-btn').forEach(function(b){b.classList.remove('active');});
+  btn.classList.add('active');
+  renderSoldApprReport();
+}
+
+function renderSoldApprReport(){
+  var el=document.getElementById('report-content');
+  if(!el)return;
+
+  var deals=[];
+  if(apprMonth==='jun'||apprMonth==='all'){
+    SOLD.forEach(function(v){
+      var n=(soldAppraisers[v.stock]||'').trim();
+      deals.push({stock:v.stock,year:v.year,make:v.make,model:v.model,date:v.date,
+        frontGross:v.frontGross,cfsGross:v.cfsGross,totalGross:v.totalGross,
+        appraiser:n,month:'Jun'});
+    });
+  }
+  if(apprMonth==='jul'||apprMonth==='all'){
+    SOLD_JULY.forEach(function(v){
+      var n=(julyAppraisers[v.stock]||'').trim();
+      deals.push({stock:v.stock,year:v.year,make:v.make,model:v.model,date:v.date,
+        frontGross:v.frontGross,cfsGross:v.cfsGross,totalGross:v.totalGross,
+        appraiser:n,month:'Jul'});
+    });
+  }
+
+  var groups={},unassigned=[];
+  deals.forEach(function(v){
+    var n=v.appraiser;
+    if(!n){unassigned.push(v);return;}
+    var k=n.toLowerCase();
+    if(!groups[k])groups[k]={name:n,deals:[]};
+    groups[k].deals.push(v);
+  });
+
+  if(!Object.keys(groups).length){
+    var ml=apprMonth==='jun'?'June':apprMonth==='jul'?'July':'June or July';
+    el.innerHTML='<div class="empty-state"><svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg><p>Assign appraisers in the Sold Units ('+ml+') tab first.</p></div>';
+    return;
+  }
+
+  var rows=Object.values(groups).map(function(g){
+    var c=g.deals.length,
+        tf=g.deals.reduce(function(s,v){return s+v.frontGross;},0),
+        tc=g.deals.reduce(function(s,v){return s+v.cfsGross;},0),
+        tt=g.deals.reduce(function(s,v){return s+v.totalGross;},0);
+    return{name:g.name,count:c,totalFront:tf,totalCFS:tc,totalGross:tt,
+      avgGross:c?tt/c:0,avgFront:c?tf/c:0,avgCFS:c?tc/c:0,deals:g.deals};
+  }).sort(function(a,b){return b.totalGross-a.totalGross;});
+
+  function toggleSACard(id){
+    var e=document.getElementById(id+'-extra');
+    if(e)e.style.display=e.style.display==='none'?'block':'none';
+  }
+  window.toggleSACard=toggleSACard;
+
+  var cards=rows.map(function(r){
+    var gk=r.totalGross>=0?'pos':'neg',ak=r.avgGross>=0?'pos':'neg';
+    var cId='sacard-'+r.name.replace(/[^a-zA-Z0-9]/g,'');
+    function dealRow(v){
+      var mBadge=apprMonth==='all'?'<span style="font-size:9px;background:var(--surface2);border-radius:4px;padding:1px 5px;color:var(--text-muted);margin-right:4px">'+v.month+'</span>':'';
+      return '<div class="appraiser-vehicle-row" style="display:grid;grid-template-columns:1fr 1fr;gap:0;align-items:center">'
+        +'<span class="appraiser-veh-name" style="font-size:11px">'+mBadge+v.year+' '+v.make+' '+v.model+'</span>'
+        +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:4px">'
+        +'<span style="font-size:11px;text-align:right;color:'+(v.frontGross>=0?'var(--green)':'var(--red)')+'">'+fmt$(v.frontGross)+'</span>'
+        +'<span style="font-size:11px;text-align:right;color:var(--blue)">'+fmt$(v.cfsGross)+'</span>'
+        +'</div></div>';
+    }
+    var first5=r.deals.slice(0,5).map(dealRow).join('');
+    var restDeals=r.deals.length>5?('<div id="'+cId+'-extra" style="display:none">'+r.deals.slice(5).map(dealRow).join('')+'</div>'):'';
+    var moreBtn=r.deals.length>5?('<div class="appraiser-vehicle-row" style="cursor:pointer" onclick="toggleSACard(\''+cId+'\')">'
+      +'<span style="color:var(--accent);font-size:11px;font-weight:600">&#9660; +'+(r.deals.length-5)+' more deals</span></div>'):'';
+    var hdr='<div style="display:grid;grid-template-columns:1fr 1fr;gap:0;margin-bottom:6px;padding-bottom:6px;border-bottom:1px solid var(--border)">'
+      +'<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--text-muted)">Vehicle</div>'
+      +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:4px">'
+      +'<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--text-muted);text-align:right">Front</div>'
+      +'<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--text-muted);text-align:right">F&amp;I</div>'
+      +'</div></div>';
+    return '<div class="sold-appraiser-card">'
+      +'<div class="appraiser-card-header"><div class="appraiser-name">'+r.name+'</div>'
+      +'<div class="appraiser-unit-badge">'+r.count+' unit'+(r.count!==1?'s':'')+'</div></div>'
+      +'<div class="appraiser-stats">'
+      +'<div class="appraiser-stat"><span class="val '+gk+'">'+(r.totalGross>=0?'+':'')+fmt$(r.totalGross)+'</span><span class="lbl">Total Gross</span></div>'
+      +'<div class="appraiser-stat"><span class="val '+ak+'">'+(r.avgGross>=0?'+':'')+fmt$(r.avgGross)+'</span><span class="lbl">Avg/Deal</span></div>'
+      +'<div class="appraiser-stat"><span class="val" style="color:'+(r.totalFront>=0?'var(--green)':'var(--red)')+'">'+fmt$(r.totalFront)+'</span><span class="lbl">Front Gross</span></div>'
+      +'<div class="appraiser-stat"><span class="val" style="color:var(--blue)">'+fmt$(r.totalCFS)+'</span><span class="lbl">F&amp;I Gross</span></div>'
+      +'<div class="appraiser-stat"><span class="val" style="color:'+(r.avgFront>=0?'var(--green)':'var(--red)')+'">'+(r.avgFront>=0?'+':'')+fmt$(r.avgFront)+'</span><span class="lbl">Avg Front PVR</span></div>'
+      +'<div class="appraiser-stat"><span class="val" style="color:var(--blue)">'+(r.avgCFS>=0?'+':'')+fmt$(r.avgCFS)+'</span><span class="lbl">Avg F&amp;I PVR</span></div>'
+      +'</div>'
+      +'<div class="appraiser-vehicles">'+hdr+first5+moreBtn+restDeals+'</div>'
+      +'</div>';
+  }).join('');
+
+  var trows=rows.map(function(r){
+    var junC=r.deals.filter(function(d){return d.month==='Jun';}).length;
+    var julC=r.deals.filter(function(d){return d.month==='Jul';}).length;
+    var countCell=apprMonth==='all'
+      ?r.count+' <span style="font-size:10px;color:var(--text-muted)">(Jun:'+junC+' Jul:'+julC+')</span>'
+      :r.count;
+    return '<tr>'
+      +'<td style="font-weight:600;color:var(--text);padding:12px 14px">'+r.name+'</td>'
+      +'<td style="font-family:\'JetBrains Mono\',monospace;color:var(--accent);padding:12px 14px">'+countCell+'</td>'
+      +'<td class="'+(r.totalGross>=0?'margin-pos':'margin-neg')+'" style="padding:12px 14px">'+(r.totalGross>=0?'+':'')+fmt$(r.totalGross)+'</td>'
+      +'<td class="'+(r.avgGross>=0?'margin-pos':'margin-neg')+'" style="padding:12px 14px">'+(r.avgGross>=0?'+':'')+fmt$(r.avgGross)+'</td>'
+      +'<td style="padding:12px 14px;font-family:\'JetBrains Mono\',monospace;color:'+(r.totalFront>=0?'var(--green)':'var(--red)')+'">'+fmt$(r.totalFront)+'</td>'
+      +'<td style="padding:12px 14px;font-family:\'JetBrains Mono\',monospace;color:var(--blue)">'+fmt$(r.totalCFS)+'</td>'
+      +'</tr>';
+  }).join('');
+
+  var unHtml=unassigned.length
+    ?'<div class="unassigned-section"><div class="unassigned-title">&#9888; Unassigned Deals <span class="unassigned-count">'+unassigned.length+' units</span></div>'
+      +'<div class="unassigned-grid">'+unassigned.map(function(v){
+        var mBadge=apprMonth==='all'?'<span style="font-size:9px;background:var(--surface2);border-radius:4px;padding:1px 5px;color:var(--text-muted);margin-right:4px">'+v.month+'</span>':'';
+        return '<div class="unassigned-card"><div class="appraiser-card-header" style="margin-bottom:4px">'
+          +'<div style="font-size:11px">'+mBadge+v.date.slice(5)+' &middot; '+v.year+' '+v.make+' '+v.model+'</div>'
+          +'<span style="font-size:11px;color:'+(v.totalGross>=0?'var(--green)':'var(--red)')+'">'+fmt$(v.totalGross)+'</span>'
+          +'</div><div class="unassigned-card-vin">'+v.stock+'</div></div>';
+      }).join('')+'</div></div>'
+    :'<div style="padding:12px 0;font-size:12px;color:var(--green)">&#10003; All deals assigned.</div>';
+
+  el.innerHTML='<div class="sold-appraiser-grid">'+cards+'</div>'
+    +'<div style="margin-bottom:12px;font-size:13px;font-weight:700;color:var(--text)">Summary Table</div>'
+    +'<div class="sold-report-table-wrap"><table class="report-table">'
+    +'<thead><tr><th>Appraiser</th><th>Units</th><th>Total Gross</th><th>Avg/Deal</th><th>Front Gross</th><th>F&amp;I Gross</th></tr></thead>'
+    +'<tbody>'+trows+'</tbody></table></div>'+unHtml;
+}
+
+// ─── PATCH 3: Inject month selector UI into the Appraiser Report tab ─────────
+document.addEventListener('DOMContentLoaded', function(){
+  var reportWrap = document.querySelector('#tab-report .report-wrap');
+  if (!reportWrap) return;
+
+  // Replace the existing report-header content
+  var oldHeader = reportWrap.querySelector('.report-header');
+  if (oldHeader) {
+    oldHeader.outerHTML = '<div class="report-header">'
+      +'<div>'
+      +'<div class="report-title">Appraiser Performance Report</div>'
+      +'<div class="report-sub">Sold units · Assign appraisers in the Sold Units tabs</div>'
+      +'</div>'
+      +'<div style="display:flex;align-items:center;gap:10px">'
+      +'<div class="source-filters" id="appr-month-btns">'
+      +'<button class="source-btn active" onclick="setApprMonth(\'jun\',this)">June</button>'
+      +'<button class="source-btn" onclick="setApprMonth(\'jul\',this)">July</button>'
+      +'<button class="source-btn" onclick="setApprMonth(\'all\',this)">All Combined</button>'
+      +'</div>'
+      +'<button class="report-action-btn" onclick="renderSoldApprReport();renderReconReport()">&#x21BB; Refresh</button>'
+      +'</div>'
+      +'</div>';
+  }
+});
+
+// ─── PATCH 4: Override switchTab to use renderSoldApprReport for 'report' tab ─
+var _origSwitchTab = switchTab;
+switchTab = function(tab, btn) {
+  _origSwitchTab(tab, btn);
+  if (tab === 'report') {
+    renderSoldApprReport();
+  }
+};
+</script>
+</body>
+</html>
+  
 </body></html>
