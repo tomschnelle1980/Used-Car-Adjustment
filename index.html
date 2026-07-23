@@ -317,7 +317,7 @@
 <div class="toast" id="toast"></div>
 
 <script>
-/* v1784768412 */ const RAW=[
+/* v1784844334 */ const RAW=[
 {vin:"4JGFB4JB8MA418216",source:"AN-Cert",year:2021,make:"Mercedes-Benz GLE",trim:"GLE 350",color:"Black",mileage:95869,advPrice:29486,targetPrice:31902,margin:3656.92,deal:"Overpriced",age:6,views:11,opps:0},
 {vin:"4JGFB4JB9LA296836",source:"AN-Cert",year:2020,make:"Mercedes-Benz GLE",trim:"GLE 350",color:"Black",mileage:70868,advPrice:28821,targetPrice:29435,margin:4976.82,deal:"Fair Deal",age:9,views:34,opps:1},
 {vin:"W1Y4NBHY2ST226949",source:"MW",year:2025,make:"Mercedes-Benz Sprinter Cargo Van",trim:"",color:"Arctic White",mileage:149,advPrice:51496,targetPrice:56483,margin:-1311.49,deal:"Fair Deal",age:19,views:42,opps:1},
@@ -1109,48 +1109,53 @@ function saveJulyAppraiser(el){julyAppraisers[el.dataset.stock]=el.value.trim();
 
 // ── JULY SOLD DATA
 var SOLD_JULY=[
-{date:"2026-07-01",stock:"PA016260",year:2023,make:"Mercedes-Benz",model:"EQS",saleType:"Finance",frontGross:-766.73,cfsGross:4834.81,totalGross:4068.08},
-{date:"2026-07-01",stock:"RFP74859",year:2024,make:"BMW",model:"4 Series",saleType:"Cash",frontGross:2861.05,cfsGross:2100.0,totalGross:4961.05},
-{date:"2026-07-03",stock:"JA092805",year:2018,make:"Mercedes-Benz",model:"GLE",saleType:"Finance",frontGross:-403.86,cfsGross:4177.72,totalGross:3773.86},
-{date:"2026-07-03",stock:"HA859281",year:2017,make:"Mercedes-Benz",model:"GLS",saleType:"Finance",frontGross:1143.45,cfsGross:4418.69,totalGross:5562.14},
-{date:"2026-07-03",stock:"NJ372139",year:2022,make:"Mercedes-Benz",model:"A-Class",saleType:"Finance",frontGross:1883.0,cfsGross:3101.87,totalGross:4984.87},
-{date:"2026-07-03",stock:"PG214111",year:2023,make:"Kia",model:"Sorento",saleType:"Finance",frontGross:-1539.95,cfsGross:4467.46,totalGross:2927.51},
-{date:"2026-07-04",stock:"TB516893",year:2026,make:"Mercedes-Benz",model:"GLE",saleType:"Lease",frontGross:-2022.79,cfsGross:6692.39,totalGross:4669.6},
-{date:"2026-07-04",stock:"MN408978",year:2021,make:"Nissan",model:"Altima",saleType:"Finance",frontGross:-1015.83,cfsGross:316.67,totalGross:-699.16},
-{date:"2026-07-05",stock:"NV364790",year:2022,make:"Mercedes-Benz",model:"GLC",saleType:"Finance",frontGross:-2789.51,cfsGross:1006.84,totalGross:-1782.67},
-{date:"2026-07-05",stock:"TN587251",year:2026,make:"Mercedes-Benz",model:"CLA",saleType:"Finance",frontGross:2052.51,cfsGross:7204.92,totalGross:9257.43},
-{date:"2026-07-05",stock:"H0U42234",year:2017,make:"BMW",model:"X3",saleType:"Finance",frontGross:-816.98,cfsGross:3972.01,totalGross:3155.03},
-{date:"2026-07-06",stock:"NH143686",year:2022,make:"Dodge",model:"Challenger",saleType:"Finance",frontGross:-1845.48,cfsGross:1463.38,totalGross:-382.1},
-{date:"2026-07-06",stock:"GL001465",year:2016,make:"Acura",model:"RDX",saleType:"Finance",frontGross:-174.33,cfsGross:3928.79,totalGross:3754.46},
-{date:"2026-07-06",stock:"PFA77705",year:2023,make:"Ford",model:"F-150",saleType:"Cash",frontGross:-744.78,cfsGross:0,totalGross:-744.78},
-{date:"2026-07-07",stock:"NA701132",year:2022,make:"Jaguar",model:"F-PACE",saleType:"Finance",frontGross:-2337.95,cfsGross:3342.94,totalGross:1004.99},
-{date:"2026-07-08",stock:"PF447730",year:2023,make:"Tesla",model:"Model 3",saleType:"Finance",frontGross:1310.25,cfsGross:4008.04,totalGross:5318.29},
-{date:"2026-07-08",stock:"ND033536",year:2022,make:"Audi",model:"Q8",saleType:"Finance",frontGross:-884.8,cfsGross:4993.5,totalGross:4108.7},
-{date:"2026-07-09",stock:"MA035071",year:2021,make:"Mercedes-Benz",model:"S-Class",saleType:"Finance",frontGross:-723.22,cfsGross:13556.87,totalGross:12833.65},
-{date:"2026-07-09",stock:"PT142866",year:2023,make:"Mercedes-Benz",model:"Sprinter Cargo Van",saleType:"Finance",frontGross:-1324.84,cfsGross:2983.24,totalGross:1658.4},
-{date:"2026-07-09",stock:"NV336240",year:2022,make:"Mercedes-Benz",model:"GLC",saleType:"Finance",frontGross:-277.77,cfsGross:765.62,totalGross:487.85},
-{date:"2026-07-10",stock:"SB281670",year:2025,make:"Mercedes-Benz",model:"GLE",saleType:"Finance",frontGross:-1297.19,cfsGross:9768.87,totalGross:8471.68},
-{date:"2026-07-11",stock:"SF049399",year:2025,make:"Mercedes-Benz",model:"CLE",saleType:"Finance",frontGross:-1647.53,cfsGross:9226.75,totalGross:7579.22},
-{date:"2026-07-11",stock:"HD014257",year:2017,make:"Audi",model:"Q7",saleType:"Cash",frontGross:-817.9,cfsGross:0,totalGross:-817.9},
-{date:"2026-07-12",stock:"PA179088",year:2023,make:"Mercedes-Benz",model:"S-Class",saleType:"Finance",frontGross:1117.42,cfsGross:6623.32,totalGross:7740.74},
-{date:"2026-07-12",stock:"TW459234",year:2026,make:"Mercedes-Benz",model:"GLB",saleType:"Lease",frontGross:1678.31,cfsGross:4362.0,totalGross:6040.31},
-{date:"2026-07-13",stock:"GU159334",year:2016,make:"Mercedes-Benz",model:"C-Class",saleType:"Finance",frontGross:-564.95,cfsGross:3670.55,totalGross:3105.6},
-{date:"2026-07-13",stock:"PJ473424",year:2023,make:"Mercedes-Benz",model:"GLA",saleType:"Finance",frontGross:-1364.95,cfsGross:3332.49,totalGross:1967.54},
-{date:"2026-07-14",stock:"TJ821805",year:2026,make:"Mercedes-Benz",model:"GLA",saleType:"Finance",frontGross:2845.51,cfsGross:3211.86,totalGross:6057.37},
-{date:"2026-07-14",stock:"KA900153",year:2019,make:"Audi",model:"RS 5 Sportback",saleType:"Finance",frontGross:557.83,cfsGross:2947.0,totalGross:3504.83},
-{date:"2026-07-15",stock:"P5341667",year:2023,make:"Lexus",model:"GX",saleType:"Cash",frontGross:448.78,cfsGross:0,totalGross:448.78},
-{date:"2026-07-16",stock:"MG006016",year:2021,make:"Mercedes-Benz",model:"GLC",saleType:"Cash",frontGross:-348.75,cfsGross:0,totalGross:-348.75},
-{date:"2026-07-16",stock:"NF129274",year:2022,make:"Cadillac",model:"XT4",saleType:"Finance",frontGross:-2712.83,cfsGross:3419.2,totalGross:706.37},
-{date:"2026-07-17",stock:"TR319139",year:2026,make:"Mercedes-Benz",model:"C-Class",saleType:"Lease",frontGross:22.79,cfsGross:700.0,totalGross:722.79},
-{date:"2026-07-18",stock:"MJ167180",year:2021,make:"Mercedes-Benz",model:"GLA",saleType:"Finance",frontGross:-3242.01,cfsGross:4229.96,totalGross:987.95},
-{date:"2026-07-18",stock:"PB099242",year:2023,make:"Mercedes-Benz",model:"E-Class",saleType:"Finance",frontGross:4248.37,cfsGross:1106.0,totalGross:5354.37},
-{date:"2026-07-19",stock:"KB288299",year:2019,make:"BMW",model:"5 Series",saleType:"Finance",frontGross:-920.43,cfsGross:895.29,totalGross:-25.14},
-{date:"2026-07-20",stock:"PA190809",year:2023,make:"Mercedes-Benz",model:"S-Class",saleType:"Cash",frontGross:500.0,cfsGross:426.0,totalGross:926.0},
-{date:"2026-07-20",stock:"KU003541",year:2019,make:"Mercedes-Benz",model:"GLA",saleType:"Finance",frontGross:-1238.79,cfsGross:4376.25,totalGross:3137.46},
-{date:"2026-07-21",stock:"PT148169",year:2023,make:"Mercedes-Benz",model:"Sprinter Cargo Van",saleType:"Finance",frontGross:234.05,cfsGross:6528.45,totalGross:6762.5},
-{date:"2026-07-21",stock:"JD043555",year:2018,make:"Audi",model:"Q7",saleType:"Cash",frontGross:3792.07,cfsGross:0,totalGross:3792.07},
-{date:"2026-07-21",stock:"PA913185",year:2023,make:"Mercedes-Benz",model:"GLE",saleType:"Finance",frontGross:3219.74,cfsGross:8115.26,totalGross:11335.0},
-{date:"2026-07-21",stock:"TR312554",year:2026,make:"Mercedes-Benz",model:"C-Class",saleType:"Lease",frontGross:2278.71,cfsGross:2354.32,totalGross:4633.03}
+  // POSTED
+  {stock:"PA016260",date:"2026-07-01",year:2023,make:"Mercedes-Benz",model:"EQS",saleType:"Finance",frontGross:-766.73,cfsGross:4834.81,totalGross:4068.08,posted:true},
+  {stock:"RFP74859",date:"2026-07-01",year:2024,make:"BMW",model:"4 Series",saleType:"Cash",frontGross:2861.05,cfsGross:2100.0,totalGross:4961.05,posted:true},
+  {stock:"JA092805",date:"2026-07-03",year:2018,make:"Mercedes-Benz",model:"GLE",saleType:"Finance",frontGross:-403.86,cfsGross:4177.72,totalGross:3773.86,posted:true},
+  {stock:"HA859281",date:"2026-07-03",year:2017,make:"Mercedes-Benz",model:"GLS",saleType:"Finance",frontGross:1143.45,cfsGross:4418.69,totalGross:5562.14,posted:true},
+  {stock:"NJ372139",date:"2026-07-03",year:2022,make:"Mercedes-Benz",model:"A-Class",saleType:"Finance",frontGross:1883.0,cfsGross:3101.87,totalGross:4984.87,posted:true},
+  {stock:"PG214111",date:"2026-07-03",year:2023,make:"Kia",model:"Sorento",saleType:"Finance",frontGross:-1539.95,cfsGross:4467.46,totalGross:2927.51,posted:true},
+  {stock:"TB516893",date:"2026-07-04",year:2026,make:"Mercedes-Benz",model:"GLE",saleType:"Lease",frontGross:-2022.79,cfsGross:6692.39,totalGross:4669.6,posted:true},
+  {stock:"MN408978",date:"2026-07-04",year:2021,make:"Nissan",model:"Altima",saleType:"Finance",frontGross:-1015.83,cfsGross:316.67,totalGross:-699.16,posted:true},
+  {stock:"NV364790",date:"2026-07-05",year:2022,make:"Mercedes-Benz",model:"GLC",saleType:"Finance",frontGross:-2789.51,cfsGross:1006.84,totalGross:-1782.67,posted:true},
+  {stock:"TN587251",date:"2026-07-05",year:2026,make:"Mercedes-Benz",model:"CLA",saleType:"Finance",frontGross:2052.51,cfsGross:7204.92,totalGross:9257.43,posted:true},
+  {stock:"H0U42234",date:"2026-07-05",year:2017,make:"BMW",model:"X3",saleType:"Finance",frontGross:-816.98,cfsGross:3972.01,totalGross:3155.03,posted:true},
+  {stock:"NH143686",date:"2026-07-06",year:2022,make:"Dodge",model:"Challenger",saleType:"Finance",frontGross:-1845.48,cfsGross:1463.38,totalGross:-382.1,posted:true},
+  {stock:"GL001465",date:"2026-07-06",year:2016,make:"Acura",model:"RDX",saleType:"Finance",frontGross:-174.33,cfsGross:3928.79,totalGross:3754.46,posted:true},
+  {stock:"PFA77705",date:"2026-07-06",year:2023,make:"Ford",model:"F-150",saleType:"Cash",frontGross:-744.78,cfsGross:0,totalGross:-744.78,posted:true},
+  {stock:"NA701132",date:"2026-07-07",year:2022,make:"Jaguar",model:"F-PACE",saleType:"Finance",frontGross:-2337.95,cfsGross:3342.94,totalGross:1004.99,posted:true},
+  {stock:"PF447730",date:"2026-07-08",year:2023,make:"Tesla",model:"Model 3",saleType:"Finance",frontGross:1310.25,cfsGross:4008.04,totalGross:5318.29,posted:true},
+  {stock:"ND033536",date:"2026-07-08",year:2022,make:"Audi",model:"Q8",saleType:"Finance",frontGross:-884.8,cfsGross:4993.5,totalGross:4108.7,posted:true},
+  {stock:"MA035071",date:"2026-07-09",year:2021,make:"Mercedes-Benz",model:"S-Class",saleType:"Finance",frontGross:-723.22,cfsGross:13556.87,totalGross:12833.65,posted:true},
+  {stock:"PT142866",date:"2026-07-09",year:2023,make:"Mercedes-Benz",model:"Sprinter Cargo Van",saleType:"Finance",frontGross:-1324.84,cfsGross:2983.24,totalGross:1658.4,posted:true},
+  {stock:"NV336240",date:"2026-07-09",year:2022,make:"Mercedes-Benz",model:"GLC",saleType:"Finance",frontGross:-277.77,cfsGross:765.62,totalGross:487.85,posted:true},
+  {stock:"SB281670",date:"2026-07-10",year:2025,make:"Mercedes-Benz",model:"GLE",saleType:"Finance",frontGross:-1297.19,cfsGross:9768.87,totalGross:8471.68,posted:true},
+  {stock:"SF049399",date:"2026-07-11",year:2025,make:"Mercedes-Benz",model:"CLE",saleType:"Finance",frontGross:-1647.53,cfsGross:9226.75,totalGross:7579.22,posted:true},
+  {stock:"HD014257",date:"2026-07-11",year:2017,make:"Audi",model:"Q7",saleType:"Cash",frontGross:-817.9,cfsGross:0,totalGross:-817.9,posted:true},
+  {stock:"PA179088",date:"2026-07-12",year:2023,make:"Mercedes-Benz",model:"S-Class",saleType:"Finance",frontGross:1117.42,cfsGross:6623.32,totalGross:7740.74,posted:true},
+  {stock:"TW459234",date:"2026-07-12",year:2026,make:"Mercedes-Benz",model:"GLB",saleType:"Lease",frontGross:1678.31,cfsGross:4362.0,totalGross:6040.31,posted:true},
+  {stock:"GU159334",date:"2026-07-13",year:2016,make:"Mercedes-Benz",model:"C-Class",saleType:"Finance",frontGross:-564.95,cfsGross:3670.55,totalGross:3105.6,posted:true},
+  {stock:"PJ473424",date:"2026-07-13",year:2023,make:"Mercedes-Benz",model:"GLA",saleType:"Finance",frontGross:-1364.95,cfsGross:3332.49,totalGross:1967.54,posted:true},
+  {stock:"TJ821805",date:"2026-07-14",year:2026,make:"Mercedes-Benz",model:"GLA",saleType:"Finance",frontGross:2845.51,cfsGross:3211.86,totalGross:6057.37,posted:true},
+  {stock:"KA900153",date:"2026-07-14",year:2019,make:"Audi",model:"RS 5 Sportback",saleType:"Finance",frontGross:557.83,cfsGross:2947.0,totalGross:3504.83,posted:true},
+  {stock:"P5341667",date:"2026-07-15",year:2023,make:"Lexus",model:"GX",saleType:"Cash",frontGross:448.78,cfsGross:0,totalGross:448.78,posted:true},
+  {stock:"MG006016",date:"2026-07-16",year:2021,make:"Mercedes-Benz",model:"GLC",saleType:"Cash",frontGross:-348.75,cfsGross:0,totalGross:-348.75,posted:true},
+  {stock:"NF129274",date:"2026-07-16",year:2022,make:"Cadillac",model:"XT4",saleType:"Finance",frontGross:-2712.83,cfsGross:3419.2,totalGross:706.37,posted:true},
+  {stock:"TR319139",date:"2026-07-17",year:2026,make:"Mercedes-Benz",model:"C-Class",saleType:"Lease",frontGross:22.79,cfsGross:700.0,totalGross:722.79,posted:true},
+  {stock:"MJ167180",date:"2026-07-18",year:2021,make:"Mercedes-Benz",model:"GLA",saleType:"Finance",frontGross:-3242.01,cfsGross:4229.96,totalGross:987.95,posted:true},
+  {stock:"PB099242",date:"2026-07-18",year:2023,make:"Mercedes-Benz",model:"E-Class",saleType:"Finance",frontGross:4248.37,cfsGross:1106.0,totalGross:5354.37,posted:true},
+  // NOT POSTED (contracted, not yet billed)
+  {stock:"KB288299",date:"2026-07-19",year:2019,make:"BMW",model:"5 Series",saleType:"Finance",frontGross:-920.43,cfsGross:895.29,totalGross:-25.14,posted:false},
+  {stock:"PA190809",date:"2026-07-20",year:2023,make:"Mercedes-Benz",model:"S-Class",saleType:"Cash",frontGross:-119.4,cfsGross:426.0,totalGross:306.6,posted:false},
+  {stock:"LR152875",date:"2026-07-20",year:2020,make:"Cadillac",model:"Escalade",saleType:"Finance",frontGross:-2000.73,cfsGross:0,totalGross:-2000.73,posted:false},
+  {stock:"KU003541",date:"2026-07-20",year:2019,make:"Mercedes-Benz",model:"GLA",saleType:"Finance",frontGross:-1238.79,cfsGross:4376.25,totalGross:3137.46,posted:false},
+  {stock:"PT148169",date:"2026-07-21",year:2023,make:"Mercedes-Benz",model:"Sprinter Cargo Van",saleType:"Finance",frontGross:234.05,cfsGross:6528.45,totalGross:6762.5,posted:false},
+  {stock:"JD043555",date:"2026-07-21",year:2018,make:"Audi",model:"Q7",saleType:"Cash",frontGross:-265.95,cfsGross:0,totalGross:-265.95,posted:false},
+  {stock:"PA913185",date:"2026-07-21",year:2023,make:"Mercedes-Benz",model:"GLE",saleType:"Finance",frontGross:3219.74,cfsGross:8115.26,totalGross:11335.0,posted:false},
+  {stock:"TR312554",date:"2026-07-21",year:2026,make:"Mercedes-Benz",model:"C-Class",saleType:"Lease",frontGross:1679.71,cfsGross:2354.32,totalGross:4034.03,posted:false},
+  {stock:"RM609107",date:"2026-07-22",year:2024,make:"Mazda",model:"CX-30",saleType:"Finance",frontGross:234.05,cfsGross:762.47,totalGross:996.52,posted:false},
+  {stock:"P5066998",date:"2026-07-22",year:2023,make:"Lexus",model:"IS",saleType:"Finance",frontGross:3060.61,cfsGross:4112.71,totalGross:7173.32,posted:false}
 ];
 
 // ── JULY ADJ DATA
@@ -1434,6 +1439,75 @@ function bucketStrip(){
       +"<div class=\"bucket-profit "+profitCls+"\">"+profitStr+"</div></div>";
   }).join('');
 }
+
+// ─── PATCH: renderSoldJuly with Posted / Not-Yet-Billed split ─────────────
+function renderSoldJuly(){
+  var jv=document.getElementById('july-view-toggle')?document.getElementById('july-view-toggle').dataset.view:'list';
+  if(jv==='report'){renderJulyReport();return;}
+  if(jv==='adj'){renderJulyAdj();return;}
+
+  var posted=SOLD_JULY.filter(function(v){return v.posted!==false;});
+  var notPosted=SOLD_JULY.filter(function(v){return v.posted===false;});
+
+  // Summary based on POSTED only
+  var totalFront=0,totalCfs=0,totalGross=0;
+  posted.forEach(function(v){totalFront+=v.frontGross;totalCfs+=v.cfsGross;totalGross+=v.totalGross;});
+  var cnt=posted.length,avgFront=cnt?totalFront/cnt:0,avgTotal=cnt?totalGross/cnt:0;
+
+  // Not-posted totals for secondary badge
+  var npFront=0,npCfs=0,npGross=0;
+  notPosted.forEach(function(v){npFront+=v.frontGross;npCfs+=v.cfsGross;npGross+=v.totalGross;});
+
+  var sb=document.getElementById('july-summary-bar');
+  if(sb){sb.innerHTML=[
+    {lbl:'Units Sold',val:cnt+' <span style="font-size:10px;color:var(--text-muted)">+'+notPosted.length+' pending</span>',color:'var(--accent)'},
+    {lbl:'Total Front',val:fmt$(totalFront),color:totalFront>=0?'var(--green)':'var(--red)'},
+    {lbl:'Avg Front/Unit',val:fmt$(avgFront),color:avgFront>=0?'var(--green)':'var(--red)'},
+    {lbl:'Total CFS',val:fmt$(totalCfs),color:'var(--blue)'},
+    {lbl:'Total Gross',val:fmt$(totalGross),color:totalGross>=0?'var(--green)':'var(--red)'},
+    {lbl:'Avg Total/Unit',val:fmt$(avgTotal),color:avgTotal>=0?'var(--green)':'var(--red)'}
+  ].map(function(s){return'<div class="summary-item"><span class="summary-num" style="color:'+s.color+'">'+s.val+'</span><span class="summary-lbl">'+s.lbl+'</span></div>';}).join('');}
+
+  var tbody=document.getElementById('july-body');if(!tbody)return;
+
+  function makeRow(v, isNotPosted){
+    var fc=v.frontGross>0?'gross-pos':v.frontGross<0?'gross-neg':'gross-zero';
+    var cc=v.cfsGross>0?'gross-pos':v.cfsGross<0?'gross-neg':'gross-zero';
+    var tc=v.totalGross>0?'gross-pos':v.totalGross<0?'gross-neg':'gross-zero';
+    var stc=v.saleType==='Cash'?'st-Cash':v.saleType==='Finance'?'st-Finance':'st-Lease';
+    var sa=(julyAppraisers[v.stock]||'').replace(/"/g,'&quot;');
+    var rowBg=isNotPosted?'background:rgba(255,165,0,0.05);':'';
+    var stockColor=isNotPosted?'color:#e8a838;':'color:#c8d4e8;';
+    return "<tr style=\"border-bottom:1px solid rgba(42,47,61,0.6);"+rowBg+"\" onmouseover=\"this.style.background='var(--accent-glow)'\" onmouseout=\"this.style.background='"+(isNotPosted?'rgba(255,165,0,0.05)':'')+"'\">"
+      +"<td style=\"padding:10px 12px;color:var(--text-muted);font-size:11px;white-space:nowrap;font-family:'JetBrains Mono',monospace\">"+v.date.slice(5)+"</td>"
+      +"<td style=\"padding:10px 12px\"><div style=\"display:flex;align-items:center;gap:5px\"><span style=\"font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;"+stockColor+"\">"+v.stock+"</span><button class=\"vin-copy\" onclick=\"copyVin('"+v.stock+"',this)\" title=\"Copy Stock#\">"+cpyIco()+"</button></div></td>"
+      +"<td style=\"padding:10px 12px;min-width:160px\"><div style=\"font-weight:600;font-size:12px;color:var(--text)\">"+v.year+" "+v.make+"</div><div style=\"font-size:11px;color:var(--text-muted)\">"+v.model+"</div></td>"
+      +"<td style=\"padding:10px 12px\"><span class=\"sale-type-badge "+stc+"\">"+v.saleType+"</span></td>"
+      +"<td style=\"padding:10px 12px;font-size:11px;color:var(--text-muted)\"></td>"
+      +"<td style=\"padding:10px 12px;font-size:11px;color:var(--text-muted)\"></td>"
+      +"<td style=\"padding:10px 12px;font-size:11px;color:var(--text-muted)\"></td>"
+      +"<td style=\"padding:10px 12px\"><span class=\""+fc+"\">"+fmt$(v.frontGross)+"</span></td>"
+      +"<td style=\"padding:10px 12px\"><span class=\""+cc+"\">"+fmt$(v.cfsGross)+"</span></td>"
+      +"<td style=\"padding:10px 12px\"><span class=\""+tc+"\" style=\"font-weight:700\">"+fmt$(v.totalGross)+"</span></td>"
+      +"<td style=\"padding:10px 12px;min-width:140px\"><select class=\"appraiser-input "+(sa?'assigned':'')+"\" data-stock=\""+v.stock+"\" onchange=\"saveJulyAppraiser(this)\">"+buildApprOpts(sa)+"</select></td>"
+      +"</tr>";
+  }
+
+  // Divider row between posted and not-posted
+  var colCount=11;
+  var divider="<tr><td colspan=\""+colCount+"\" style=\"padding:0;\">"
+    +"<div style=\"display:flex;align-items:center;gap:10px;padding:10px 14px;background:rgba(232,168,56,0.08);border-top:1px solid rgba(232,168,56,0.25);border-bottom:1px solid rgba(232,168,56,0.25);\">"
+    +"<span style=\"font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#e8a838;\">&#9679; Not Yet Billed</span>"
+    +"<span style=\"font-size:11px;color:var(--text-muted);\">"+notPosted.length+" units &nbsp;&middot;&nbsp; Front: "+fmt$(npFront)+" &nbsp;&middot;&nbsp; F&amp;I: "+fmt$(npCfs)+" &nbsp;&middot;&nbsp; Total: "+fmt$(npGross)+"</span>"
+    +"</div></td></tr>";
+
+  tbody.innerHTML=posted.map(function(v){return makeRow(v,false);}).join('')
+    +(notPosted.length ? divider+notPosted.map(function(v){return makeRow(v,true);}).join('') : '');
+
+  var c=document.getElementById('july-count');if(c)c.textContent=cnt+' (+'+(notPosted.length)+' pending)';
+  var g=document.getElementById('july-total-gross');if(g){g.textContent=fmt$(totalGross);g.style.color=totalGross>=0?'var(--green)':'var(--red)';}
+}
+
 </script>
 
 <!-- SOLD UNITS TAB  -->
