@@ -317,7 +317,7 @@
 <div class="toast" id="toast"></div>
 
 <script>
-/* v1784844616 */ const RAW=[
+/* v1784846170 */ const RAW=[
 {vin:"4JGFB4JB8MA418216",source:"AN-Cert",year:2021,make:"Mercedes-Benz GLE",trim:"GLE 350",color:"Black",mileage:95869,advPrice:29486,targetPrice:31902,margin:3656.92,deal:"Overpriced",age:6,views:11,opps:0},
 {vin:"4JGFB4JB9LA296836",source:"AN-Cert",year:2020,make:"Mercedes-Benz GLE",trim:"GLE 350",color:"Black",mileage:70868,advPrice:28821,targetPrice:29435,margin:4976.82,deal:"Fair Deal",age:9,views:34,opps:1},
 {vin:"W1Y4NBHY2ST226949",source:"MW",year:2025,make:"Mercedes-Benz Sprinter Cargo Van",trim:"",color:"Arctic White",mileage:149,advPrice:51496,targetPrice:56483,margin:-1311.49,deal:"Fair Deal",age:19,views:42,opps:1},
@@ -665,7 +665,10 @@ function buildApprOpts(selected) {
   return h;
 }
 
-var adjComments = (function(){try{var s=localStorage.getItem('mb_adj_comments');return s?JSON.parse(s):{}}catch(e){return{}}}());
+var adjComments = (function(){
+  var defaults = typeof ADJ_DEFAULTS !== 'undefined' ? ADJ_DEFAULTS : {};
+  try { var s = localStorage.getItem('mb_adj_comments'); var saved = s ? JSON.parse(s) : {}; return Object.assign({}, defaults, saved); } catch(e) { return defaults; }
+}());
 var ADJ_DEFAULTS = {
   "adj_HA168336_0": "Bank fee that was missed. Cap1",
   "adj_NV400611_1": "Unit came from MB Pembroke Pines. C3 Units. Had issues. Alignment & Tint.",
@@ -868,6 +871,7 @@ function saveAdjComment(el) {
   } else {
     delete adjComments[key];
   }
+  try { localStorage.setItem('mb_adj_comments', JSON.stringify(adjComments)); } catch(e) {}
 }
 
 function loadAdjComments() {
@@ -1419,7 +1423,7 @@ function renderJulyAdj(){
       }
       out+="<td style=\"padding:8px 10px\"><span class=\"sale-type-badge "+typeCls+"\" style=\"font-size:10px;padding:2px 7px;border-radius:5px;font-weight:700\">"+r.trxType+"</span></td>";
       out+="<td class=\""+amtCls+"\" style=\"padding:8px 10px;text-align:right;font-weight:700\">"+fmt$(amt)+"</td>";
-      out+="<td style=\"padding:8px 10px;min-width:200px\"><input type=\"text\" data-adjkey=\""+adjkey+"\" onchange=\"saveJulyAdjComment(this)\" placeholder=\"Add comment...\" value=\""+comment+"\" style=\"width:100%;background:transparent;border:none;border-bottom:1px solid var(--border);color:var(--text);font-size:11px;padding:2px 4px;outline:none\"></td>";
+      out+="<td style=\"padding:8px 10px;min-width:200px\"><input type=\"text\" data-adjkey=\""+adjkey+"\" oninput=\"saveJulyAdjComment(this)\" placeholder=\"Add comment...\" value=\""+comment+"\" style=\"width:100%;background:transparent;border:none;border-bottom:1px solid var(--border);color:var(--text);font-size:11px;padding:2px 4px;outline:none\"></td>";
       out+="</tr>";
     });
     if(g.rows.length>1){
