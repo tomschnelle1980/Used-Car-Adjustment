@@ -317,7 +317,7 @@
 <div class="toast" id="toast"></div>
 
 <script>
-/* v1784846194 */ const RAW=[
+/* v1784851916 */ const RAW=[
 {vin:"4JGFB4JB8MA418216",source:"AN-Cert",year:2021,make:"Mercedes-Benz GLE",trim:"GLE 350",color:"Black",mileage:95869,advPrice:29486,targetPrice:31902,margin:3656.92,deal:"Overpriced",age:6,views:11,opps:0},
 {vin:"4JGFB4JB9LA296836",source:"AN-Cert",year:2020,make:"Mercedes-Benz GLE",trim:"GLE 350",color:"Black",mileage:70868,advPrice:28821,targetPrice:29435,margin:4976.82,deal:"Fair Deal",age:9,views:34,opps:1},
 {vin:"W1Y4NBHY2ST226949",source:"MW",year:2025,make:"Mercedes-Benz Sprinter Cargo Van",trim:"",color:"Arctic White",mileage:149,advPrice:51496,targetPrice:56483,margin:-1311.49,deal:"Fair Deal",age:19,views:42,opps:1},
@@ -485,6 +485,9 @@ function applySort(){currentSort=document.getElementById('sort-select').value;re
 function sortBy(f){const sel=document.getElementById('sort-select');const base=f==='make'?'make-asc':f==='age'?'age-desc':f==='advPrice'||f==='price'?'price-desc':f==='mileage'?'mileage-asc':f==='views'?'views-desc':f==='opps'?'opps-desc':f==='margin'?'margin-desc':'age-desc';const opp=base.endsWith('-desc')?base.replace('-desc','-asc'):base.replace('-asc','-desc');sel.value=(sel.value===base)?opp:base;currentSort=sel.value;render()}
 window.addEventListener('DOMContentLoaded',function(){var _si=document.getElementById('search-input');if(_si)_si.addEventListener('input',function(){searchTerm=this.value.trim();render();});loadReconFromCloud();setTimeout(initReconRows,500);});
 
+function renderManagerList(){
+  // Settings tab manager list - no-op stub (settings content is static HTML)
+}
 function switchTab(tab,btn){
   if(tab==='sold'){setTimeout(function(){if(soldView==='adj')renderAdj();else renderSold();},10)}
   if(tab==='sold-july'){setTimeout(renderSoldJuly,10)}
