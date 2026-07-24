@@ -317,7 +317,7 @@
 <div class="toast" id="toast"></div>
 
 <script>
-/* v1784860713 */ const RAW=[
+/* v1784860826 */ const RAW=[
 {vin:"4JGFB4JB8MA418216",source:"AN-Cert",year:2021,make:"Mercedes-Benz GLE",trim:"GLE 350",color:"Black",mileage:95869,advPrice:29486,targetPrice:31902,margin:3656.92,deal:"Overpriced",age:6,views:11,opps:0},
 {vin:"4JGFB4JB9LA296836",source:"AN-Cert",year:2020,make:"Mercedes-Benz GLE",trim:"GLE 350",color:"Black",mileage:70868,advPrice:28821,targetPrice:29435,margin:4976.82,deal:"Fair Deal",age:9,views:34,opps:1},
 {vin:"W1Y4NBHY2ST226949",source:"MW",year:2025,make:"Mercedes-Benz Sprinter Cargo Van",trim:"",color:"Arctic White",mileage:149,advPrice:51496,targetPrice:56483,margin:-1311.49,deal:"Fair Deal",age:19,views:42,opps:1},
@@ -479,7 +479,7 @@ function render(){
 <td class="appraiser-cell"><select class="appraiser-input ${sa?'assigned':''}" data-vin="${v.vin}" onchange="saveAppraiser(this)">${buildApprOpts(sa)}</select></td>
 </tr>`}).join('')}
 
-function saveAppraiser(el){appraisers[el.dataset.vin]=el.value.trim();el.classList.toggle('assigned',el.value!=='');try{localStorage.setItem('mb_appraisers',JSON.stringify(appraisers))}catch(e){}};savePrefsToCloud('mb_appraisers',appraisers);}
+function saveAppraiser(el){appraisers[el.dataset.vin]=el.value.trim();el.classList.toggle('assigned',el.value!=='');try{localStorage.setItem('mb_appraisers',JSON.stringify(appraisers))}catch(e){}savePrefsToCloud('mb_appraisers',appraisers);}
 function setSource(s,b){currentSource=s;document.querySelectorAll('.source-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');render()}
 function applySort(){currentSort=document.getElementById('sort-select').value;render()}
 function sortBy(f){const sel=document.getElementById('sort-select');const base=f==='make'?'make-asc':f==='age'?'age-desc':f==='advPrice'||f==='price'?'price-desc':f==='mileage'?'mileage-asc':f==='views'?'views-desc':f==='opps'?'opps-desc':f==='margin'?'margin-desc':'age-desc';const opp=base.endsWith('-desc')?base.replace('-desc','-asc'):base.replace('-asc','-desc');sel.value=(sel.value===base)?opp:base;currentSort=sel.value;render()}
@@ -816,7 +816,7 @@ function renderSoldReport(data){
   const unHtml=unassigned.length?`<div class="unassigned-section"><div class="unassigned-title">&#9888; Unassigned Deals <span class="unassigned-count">${unassigned.length} units</span></div><div class="unassigned-grid">${unassigned.map(v=>`<div class="unassigned-card"><div class="appraiser-card-header" style="margin-bottom:4px"><div class="unassigned-card-make" style="font-size:11px">${v.date.slice(5)} &middot; ${v.year} ${v.make} ${v.model}</div><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:${v.totalGross>=0?'var(--green)':'var(--red)'}">${fmt$(v.totalGross)}</span></div><div class="unassigned-card-vin">${v.stock}<button class="mini-copy" onclick="copyVin('${v.stock}',this)" title="Copy Stock#">${cpyIco()}</button></div></div>`).join('')}</div></div>`:'<div style="padding:12px 0;font-size:12px;color:var(--green)">&#10003; All deals assigned.</div>';
   el.innerHTML=`<div class="sold-appraiser-grid">${cards}</div><div style="margin-bottom:12px;font-size:13px;font-weight:700;color:var(--text)">Summary Table</div><div class="sold-report-table-wrap"><table class="report-table"><thead><tr><th>Appraiser</th><th>Units</th><th>Total Gross</th><th>Avg/Deal</th><th>Front Gross</th><th>F&I Gross</th></tr></thead><tbody>${trows}</tbody></table></div>${unHtml}`}
 
-function saveSoldAppraiser(el){soldAppraisers[el.dataset.stock]=el.value.trim();el.classList.toggle('assigned',el.value!=='');try{localStorage.setItem('mb_sold_appraisers',JSON.stringify(soldAppraisers))}catch(e){}};savePrefsToCloud('mb_sold_appraisers',soldAppraisers);}
+function saveSoldAppraiser(el){soldAppraisers[el.dataset.stock]=el.value.trim();el.classList.toggle('assigned',el.value!=='');try{localStorage.setItem('mb_sold_appraisers',JSON.stringify(soldAppraisers))}catch(e){}savePrefsToCloud('mb_sold_appraisers',soldAppraisers);}
 function setSoldView(v,btn){
   soldView=v;
   ['sold-view-list','sold-view-report','sold-view-adj'].forEach(function(id){var el=document.getElementById(id);if(el)el.classList.remove('active');});
@@ -1113,7 +1113,7 @@ function loadReconMgrsAndNotes() {
 
 // ── JULY APPRAISER STORAGE
 var julyAppraisers=(function(){try{var s=localStorage.getItem('mb_july_appraisers');return s?JSON.parse(s):{}}catch(e){return{}}}());
-function saveJulyAppraiser(el){julyAppraisers[el.dataset.stock]=el.value.trim();el.classList.toggle('assigned',el.value!=='');try{localStorage.setItem('mb_july_appraisers',JSON.stringify(julyAppraisers))}catch(e){}};savePrefsToCloud('mb_july_appraisers',julyAppraisers);}
+function saveJulyAppraiser(el){julyAppraisers[el.dataset.stock]=el.value.trim();el.classList.toggle('assigned',el.value!=='');try{localStorage.setItem('mb_july_appraisers',JSON.stringify(julyAppraisers))}catch(e){}savePrefsToCloud('mb_july_appraisers',julyAppraisers);}
 
 // ── JULY SOLD DATA
 var SOLD_JULY=[
@@ -1314,7 +1314,7 @@ var JULY_ADJ_TOTALS={net:-28993.47,frontAdj:-27295.07,fiAdj:2639.84,ficBack:-191
 
 var julyAdjFilter='ALL';
 var julyAdjComments=(function(){try{var s=localStorage.getItem('mb_july_adj_comments');return s?JSON.parse(s):{}}catch(e){return{}}}());
-function saveJulyAdjComment(el){var key=el.dataset.adjkey;if(el.value.trim()){julyAdjComments[key]=el.value.trim();}else{delete julyAdjComments[key];}try{localStorage.setItem('mb_july_adj_comments',JSON.stringify(julyAdjComments))}catch(e){}};savePrefsToCloud('mb_july_adj_comments',julyAdjComments);}
+function saveJulyAdjComment(el){var key=el.dataset.adjkey;if(el.value.trim()){julyAdjComments[key]=el.value.trim();}else{delete julyAdjComments[key];}try{localStorage.setItem('mb_july_adj_comments',JSON.stringify(julyAdjComments))}catch(e){}savePrefsToCloud('mb_july_adj_comments',julyAdjComments);}
 function julyAdjFilterFn(type,btn){julyAdjFilter=type;document.querySelectorAll('#july-adj-type-filters .source-btn').forEach(function(b){b.classList.remove('active')});btn.classList.add('active');renderJulyAdj();}
 
 function renderSoldJuly(){
